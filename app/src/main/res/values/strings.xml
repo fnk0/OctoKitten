@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">OctoKitten</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="client_secret">3a4218a886e84648cd0997f2aad9cff757dbb53f</string>
+    <string name="client_id">def6f1d5824fb5df5bdc</string>
+    <string name="login_note">Github Viewer App</string>
+
+    <string name="sign_in">Github Viewer - Sign In</string>
+
+    <string-array name="scopes">
+        <item>user</item>
+        <item>repo</item>
+        <item>gist</item>
+        <item>notifications</item>
+        <item>repo:status</item>
+    </string-array>
+
+    <string-array name="nav_icons">
+        <item/>
+        <item>\uf034</item>
+        <item>\uf001</item>
+        <item>\uf02e</item>
+        <item>\uf00a</item>
+        <item>\uf032</item>
+    </string-array>
+    <string-array name="nav_titles">
+        <item/>
+        <item>News feed</item>
+        <item>Repositories</item>
+        <item>Search OSS</item>
+        <item>Profile</item>
+        <item>Sign Out</item>
+    </string-array>
+
+    <array name="octocats">
+        <item name="oc1">@drawable/octocat1</item>
+        <item name="oc2">@drawable/octocat2</item>
+        <item name="oc3">@drawable/octocat3</item>
+        <item name="oc4">@drawable/octocat4</item>
+        <item name="oc5">@drawable/octocat5</item>
+        <item name="oc6">@drawable/octocat6</item>
+    </array>
+
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="title_activity_base_detail_activty">Base Detail Activty</string>
+
+    <!-- 404 Frag -->
+    <string name="text_404">This is not the page you are looking for.</string>
+
+    <!-- Errors -->
+    <string name="unknown_uri">Unknow URI: %s</string>
+    <string name="failed_insert_row">Failed to insert row into %s</string>
+
+    <!-- Constants -->
+    <string name="dir">dir</string>
+    <string name="title">title</string>
+    <string name="url">url</string>
+
+</resources>

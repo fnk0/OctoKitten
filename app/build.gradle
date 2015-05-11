@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.gabilheri.octokitten"
+        minSdkVersion 19
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    /**
+     * Support libraries
+     */
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:support-annotations:22.1.0'
+    compile 'com.android.support:support-v13:22.1.0'
+
+    /**
+     * UI
+     */
+    compile('com.mikepenz.materialdrawer:library:2.9.2@aar') {
+        transitive = true
+    }
+    compile 'com.afollestad:material-dialogs:0.7.3.2'
+    compile 'it.neokree:MaterialTabs:0.11'
+    compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.0.1'
+    compile 'de.hdodenhof:circleimageview:1.2.0'
+    compile 'com.pnikosis:materialish-progress:1.4'
+    compile 'org.commonjava.googlecode.markdown4j:markdown4j:2.2-cj-1.0'
+
+    /**
+     * Core
+     */
+    compile 'io.realm:realm-android:0.80.1'
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    /**
+     * Square / JW Awesomeness
+     */
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+}
