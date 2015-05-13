@@ -13,6 +13,8 @@ import retrofit.RestAdapter;
 public class GithubClient {
 
     public static final String API_URL = "https://api.github.com";
+    public static final String CLIENT_SECRET = "793dc35ab593704de8e6d689a7ab53b5ec5afbf7";
+    public static final String CLIENT_ID = "4fc2b3dbccbff4c4ce40";
 
     private RestAdapter restAdapter;
 

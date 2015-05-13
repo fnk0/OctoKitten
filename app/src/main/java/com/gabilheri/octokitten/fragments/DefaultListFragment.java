@@ -45,6 +45,7 @@ public abstract class DefaultListFragment extends DefaultFragment {
         recyclerViewList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mCardArrayAdapter = new CardArrayRecyclerViewAdapter(getActivity(), null);
         recyclerViewList.setAdapter(mCardArrayAdapter);
+
     }
 
     public Runnable refreshList() {
@@ -60,8 +61,8 @@ public abstract class DefaultListFragment extends DefaultFragment {
 
     public void initList(ArrayList<Card> cards) {
         mCardArrayAdapter.setCards(cards);
-        refreshList();
         progressWheel.setVisibility(View.GONE);
+        refreshList();
     }
 
     @Override

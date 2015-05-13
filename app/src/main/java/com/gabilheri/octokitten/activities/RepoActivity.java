@@ -57,5 +57,7 @@ public class RepoActivity extends BasePagerActivity {
         fragmentList.add(contributorsFragment);
 
         initPager();
+        setPagerNumber(1);
+
     }
 }

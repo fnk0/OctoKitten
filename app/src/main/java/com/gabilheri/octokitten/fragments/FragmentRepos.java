@@ -28,23 +28,28 @@ import rx.schedulers.Schedulers;
  */
 public class FragmentRepos extends DefaultListFragment {
 
+    Observable<List<Repo>> repos;
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         GithubClient client = new GithubClient(true);
         RepoService repoService = client.createService(RepoService.class);
-        Observable<List<Repo>> repos = repoService.getRepos("fnk0");
 
-        AppObservable.bindFragment(this, repos);
+        setRetainInstance(true);
+
+        repos = repoService.getRepos("fnk0");
         repos.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
+
+        AppObservable.bindFragment(this, repos);
     }
 
     public Subscriber<List<Repo>> subscriber = new Subscriber<List<Repo>>() {
         @Override
         public void onCompleted() {
-            unsubscribe();
+//            unsubscribe();
         }
 
         @Override
@@ -59,9 +64,13 @@ public class FragmentRepos extends DefaultListFragment {
             for (Repo r : repos) {
                 cards.add(new CardRepo(getActivity(), r));
             }
-//            mCardArrayAdapter = new CardArrayRecyclerViewAdapter(getActivity(), cards);
-//            recyclerViewList.setAdapter(mCardArrayAdapter);
             initList(cards);
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        subscriber.unsubscribe();
+    }
 }

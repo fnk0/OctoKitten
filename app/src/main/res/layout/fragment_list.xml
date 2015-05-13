@@ -4,9 +4,9 @@
     xmlns:wheel="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/md_grey_300"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/dashboard_layout">
+    android:layout_height="match_parent">
 
     <com.pnikosis.materialishprogress.ProgressWheel
         android:id="@+id/progress_wheel"
