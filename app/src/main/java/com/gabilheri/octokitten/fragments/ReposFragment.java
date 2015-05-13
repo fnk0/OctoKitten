@@ -26,7 +26,7 @@ import rx.schedulers.Schedulers;
  * @version 1.0
  * @since 5/10/15.
  */
-public class FragmentRepos extends DefaultListFragment {
+public class ReposFragment extends DefaultListFragment {
 
     Observable<List<Repo>> repos;
 

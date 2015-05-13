@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.gabilheri.octokitten.fragments.FragmentRepos;
+import com.gabilheri.octokitten.fragments.ReposFragment;
 import com.gabilheri.octokitten.utils.CustomUtils;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         toolbar.setTitle(getString(R.string.app_name));
-        CustomUtils.addFragmentToContainer(new FragmentRepos(), R.id.container, this);
+        CustomUtils.addFragmentToContainer(new ReposFragment(), R.id.container, this);
 
         IProfile profile = new ProfileDrawerItem()
                 .withName("Marcus Gabilheri")
