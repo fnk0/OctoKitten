@@ -9,7 +9,7 @@ public class Organization {
     @Expose
     private String login;
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("avatar_url")
     @Expose
     private String avatarUrl;
@@ -52,7 +52,7 @@ public class Organization {
     private String type;
     @SerializedName("site_admin")
     @Expose
-    private Boolean siteAdmin;
+    private boolean siteAdmin;
 
     /**
      * 
@@ -77,7 +77,7 @@ public class Organization {
      * @return
      *     The id
      */
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -86,7 +86,7 @@ public class Organization {
      * @param id
      *     The id
      */
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -347,7 +347,7 @@ public class Organization {
      * @return
      *     The siteAdmin
      */
-    public Boolean getSiteAdmin() {
+    public boolean getSiteAdmin() {
         return siteAdmin;
     }
 
@@ -356,7 +356,7 @@ public class Organization {
      * @param siteAdmin
      *     The site_admin
      */
-    public void setSiteAdmin(Boolean siteAdmin) {
+    public void setSiteAdmin(boolean siteAdmin) {
         this.siteAdmin = siteAdmin;
     }
 

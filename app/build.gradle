@@ -1,4 +1,25 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+
+        // Material dialog
+        maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.jakewharton.hugo'
+
+repositories {
+    // Icepick
+    maven {url "https://clojars.org/repo/"}
+
+    // Material Dialogs
+    maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
+}
+
 
 android {
     compileSdkVersion 22
@@ -6,10 +27,14 @@ android {
 
     defaultConfig {
         applicationId "com.gabilheri.octokitten"
-        minSdkVersion 19
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
+        resConfigs "en"
+        resConfigs "nodpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
+
     }
     buildTypes {
         release {
@@ -20,12 +45,17 @@ android {
 
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
     }
 }
 
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+//    compile 'com.firebase:firebase-client-android:2.2.4+'
 
     /**
      * Support libraries
@@ -50,8 +80,9 @@ dependencies {
     /**
      * Core
      */
-    compile 'io.realm:realm-android:0.80.1'
     compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'frankiesardo:icepick:3.0.2'
+    provided 'frankiesardo:icepick-processor:3.0.2'
 
     /**
      * Square / JW Awesomeness
@@ -61,4 +92,15 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.squareup:otto:1.3.7'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+    compile 'com.jakewharton.timber:timber:3.1.0'
+
+    /**
+     * Dagger
+     */
+    apt 'com.google.dagger:dagger-compiler:2.0'
+    compile 'com.google.dagger:dagger:2.0'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 }

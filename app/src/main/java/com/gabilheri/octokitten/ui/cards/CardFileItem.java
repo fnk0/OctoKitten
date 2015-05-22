@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gabilheri.octokitten.R;
+import com.gabilheri.octokitten.ui.repo.ReposListActivity;
 import com.gabilheri.octokitten.data_models.RepoContent;
+import com.gabilheri.octokitten.ui.repo.code.SourceCodeListFragment;
 import com.gabilheri.octokitten.network.GithubClient;
 import com.gabilheri.octokitten.utils.FileType;
 import com.gabilheri.octokitten.utils.FileUtils;
@@ -61,6 +63,12 @@ public class CardFileItem extends Card implements Card.OnCardClickListener {
         String url = repoContent.getUrl().replaceAll(GithubClient.API_URL + "/", "");
         b.putString(getContext().getString(R.string.url), url);
         b.putString(getContext().getString(R.string.title), repoContent.getPath());
+
+        SourceCodeListFragment fragment = new SourceCodeListFragment();
+        fragment.setArguments(b);
+        if(getContext() instanceof ReposListActivity) {
+            ((ReposListActivity) getContext()).addFragment(repoContent.getPath(), fragment);
+        }
 
 //        if(repoContent.getType().equals(getContext().getString(R.string.dir))) {
 //            m.displayView(MainActivity.REPO_LIST_FRAG, b);

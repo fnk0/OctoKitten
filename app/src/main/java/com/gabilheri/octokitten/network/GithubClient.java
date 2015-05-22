@@ -1,7 +1,12 @@
 package com.gabilheri.octokitten.network;
 
+import android.content.Context;
+
+import com.gabilheri.octokitten.data.api.github.GithubService;
+
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
@@ -10,6 +15,7 @@ import retrofit.RestAdapter;
  * @version 1.0
  * @since 5/7/15.
  */
+
 public class GithubClient {
 
     public static final String API_URL = "https://api.github.com";
@@ -18,17 +24,20 @@ public class GithubClient {
 
     private RestAdapter restAdapter;
 
-    public GithubClient(boolean debug) {
+    public GithubClient(boolean debug, RequestInterceptor interceptor, Context context) {
         restAdapter = new RestAdapter.Builder()
                 .setEndpoint(API_URL)
-                .setRequestInterceptor(new RequestInterceptor() {
-                    @Override
-                    public void intercept(RequestFacade request) {
-                        request.addHeader("Accept", "application/vnd.github.v3+json");
-                        request.addHeader("User-Agent", "OctoKitten for GitHub");
-                    }
-                })
+                .setRequestInterceptor(interceptor == null ? new BaseInterceptor() : interceptor)
                 .setLogLevel(debug ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
+                .setClient(new OkClient())
+                .build();
+    }
+
+    public GithubClient(OkClient client, RequestInterceptor interceptor) {
+        restAdapter = new RestAdapter.Builder()
+                .setEndpoint(API_URL)
+                .setClient(client)
+                .setRequestInterceptor(interceptor == null ? new BaseInterceptor() : interceptor)
                 .build();
     }
 
@@ -38,6 +47,10 @@ public class GithubClient {
 
     public <T> T createService(Class<T> service) {
         return restAdapter.create(service);
+    }
+
+    public GithubService createGithubService() {
+        return createService(GithubService.class);
     }
 }
 

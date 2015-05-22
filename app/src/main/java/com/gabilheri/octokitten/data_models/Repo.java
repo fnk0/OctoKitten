@@ -24,16 +24,18 @@ public class Repo implements Comparable<Repo> {
     private String fullName;
     @Expose
     private User owner;
+
     @SerializedName("private")
     @Expose
-    private Boolean _private;
+    private boolean isPrivate;
+
     @SerializedName("html_url")
     @Expose
     private String htmlUrl;
     @Expose
     private String description;
     @Expose
-    private Boolean fork;
+    private boolean fork;
     @Expose
     private String url;
     @SerializedName("forks_url")
@@ -176,16 +178,16 @@ public class Repo implements Comparable<Repo> {
     private String language;
     @SerializedName("has_issues")
     @Expose
-    private Boolean hasIssues;
+    private boolean hasIssues;
     @SerializedName("has_downloads")
     @Expose
-    private Boolean hasDownloads;
+    private boolean hasDownloads;
     @SerializedName("has_wiki")
     @Expose
-    private Boolean hasWiki;
+    private boolean hasWiki;
     @SerializedName("has_pages")
     @Expose
-    private Boolean hasPages;
+    private boolean hasPages;
     @SerializedName("forks_count")
     @Expose
     private Integer forksCount;
@@ -273,21 +275,6 @@ public class Repo implements Comparable<Repo> {
     }
 
     /**
-     * @return The _private
-     */
-    public Boolean getPrivate() {
-        return _private;
-    }
-
-    /**
-     * @param _private
-     *         The private
-     */
-    public void setPrivate(Boolean _private) {
-        this._private = _private;
-    }
-
-    /**
      * @return The htmlUrl
      */
     public String getHtmlUrl() {
@@ -320,7 +307,7 @@ public class Repo implements Comparable<Repo> {
     /**
      * @return The fork
      */
-    public Boolean getFork() {
+    public boolean getFork() {
         return fork;
     }
 
@@ -328,7 +315,7 @@ public class Repo implements Comparable<Repo> {
      * @param fork
      *         The fork
      */
-    public void setFork(Boolean fork) {
+    public void setFork(boolean fork) {
         this.fork = fork;
     }
 
@@ -495,6 +482,14 @@ public class Repo implements Comparable<Repo> {
      */
     public void setTagsUrl(String tagsUrl) {
         this.tagsUrl = tagsUrl;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setIsPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
     }
 
     /**
@@ -1055,7 +1050,7 @@ public class Repo implements Comparable<Repo> {
     /**
      * @return The hasIssues
      */
-    public Boolean getHasIssues() {
+    public boolean getHasIssues() {
         return hasIssues;
     }
 
@@ -1063,14 +1058,14 @@ public class Repo implements Comparable<Repo> {
      * @param hasIssues
      *         The has_issues
      */
-    public void setHasIssues(Boolean hasIssues) {
+    public void setHasIssues(boolean hasIssues) {
         this.hasIssues = hasIssues;
     }
 
     /**
      * @return The hasDownloads
      */
-    public Boolean getHasDownloads() {
+    public boolean getHasDownloads() {
         return hasDownloads;
     }
 
@@ -1078,14 +1073,14 @@ public class Repo implements Comparable<Repo> {
      * @param hasDownloads
      *         The has_downloads
      */
-    public void setHasDownloads(Boolean hasDownloads) {
+    public void setHasDownloads(boolean hasDownloads) {
         this.hasDownloads = hasDownloads;
     }
 
     /**
      * @return The hasWiki
      */
-    public Boolean getHasWiki() {
+    public boolean getHasWiki() {
         return hasWiki;
     }
 
@@ -1093,14 +1088,14 @@ public class Repo implements Comparable<Repo> {
      * @param hasWiki
      *         The has_wiki
      */
-    public void setHasWiki(Boolean hasWiki) {
+    public void setHasWiki(boolean hasWiki) {
         this.hasWiki = hasWiki;
     }
 
     /**
      * @return The hasPages
      */
-    public Boolean getHasPages() {
+    public boolean getHasPages() {
         return hasPages;
     }
 
@@ -1108,7 +1103,7 @@ public class Repo implements Comparable<Repo> {
      * @param hasPages
      *         The has_pages
      */
-    public void setHasPages(Boolean hasPages) {
+    public void setHasPages(boolean hasPages) {
         this.hasPages = hasPages;
     }
 

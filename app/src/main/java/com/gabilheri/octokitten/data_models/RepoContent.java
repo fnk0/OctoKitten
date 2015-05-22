@@ -7,10 +7,12 @@ package com.gabilheri.octokitten.data_models;
  * @version 1.0
  * @since 5/10/15.
  */
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RepoContent {
+public class RepoContent implements Comparable<RepoContent> {
 
     @Expose
     private String name;
@@ -244,7 +246,7 @@ public class RepoContent {
      * @return
      * The Links
      */
-    public com.gabilheri.octokitten.data_models.Links getLinks() {
+    public Links getLinks() {
         return Links;
     }
 
@@ -255,5 +257,10 @@ public class RepoContent {
      */
     public void setLinks(com.gabilheri.octokitten.data_models.Links Links) {
         this.Links = Links;
+    }
+
+    @Override
+    public int compareTo(@NonNull RepoContent another) {
+        return Boolean.compare(another.getType().equals("dir"), this.getType().equals("dir"));
     }
 }

@@ -19,7 +19,7 @@
 
 # Rules for Retrofit
 -dontwarn retrofit.**
-        -keep class retrofit.** { *; }
+-keep class retrofit.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
 
@@ -29,7 +29,7 @@
 # Butter Knife rules
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
-        -keep class **$$ViewInjector { *; }
+-keep class **$$ViewInjector { *; }
 
 -keepclasseswithmembernames class * {
     @butterknife.* <fields>;
@@ -43,5 +43,5 @@
 -keepnames public class * extends io.realm.RealmObject
 -keep class io.realm.** { *; }
 -dontwarn javax.**
-        -dontwarn io.realm.**
+-dontwarn io.realm.**
 

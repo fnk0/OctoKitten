@@ -38,6 +38,7 @@ public class BaseViewPagerAdapter extends FragmentStatePagerAdapter {
         return fragmentList.size();
     }
 
+
     @Override
     public CharSequence getPageTitle(int position) {
         return titleList.get(position);

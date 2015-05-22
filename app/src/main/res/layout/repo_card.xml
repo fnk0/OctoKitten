@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:minHeight="80dip"
     android:layout_height="wrap_content"
+    android:gravity="center"
+    android:minHeight="80dip"
+    android:orientation="horizontal"
     android:padding="10dip"
-    android:weightSum="10"
-    android:gravity="center">
+    android:weightSum="10">
+
     <TextView
         android:id="@+id/repo_icon"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text=""
-        android:textColor="@color/background_floating_material_dark"
         android:textAppearance="?android:textAppearanceLarge"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content" />
+        android:textColor="@color/background_floating_material_dark"/>
 
     <LinearLayout
         android:id="@+id/titles"
-        android:layout_weight="7"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
+        android:layout_weight="7"
         android:orientation="vertical"
         >
 
@@ -31,32 +31,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Stub Repo Title"
-            android:textSize="18sp"
             android:textColor="@color/md_indigo_500"
+            android:textSize="18sp"
             />
 
         <TextView
             android:id="@+id/repo_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:singleLine="true"
             android:text="This repo does bla bla bla..."
             android:textColor="@color/secondary_text"
-            android:singleLine="true"
-            android:layout_marginTop="5dip"
             />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/stars_count"
-        android:layout_weight="2"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:textColor="@color/abc_secondary_text_material_light"
-        android:text="70"
-        android:gravity="center"
-        android:drawableRight="@drawable/ic_toggle_star_outline"
+        android:layout_weight="2"
         android:drawableEnd="@drawable/ic_toggle_star_outline"
+        android:drawableRight="@drawable/ic_toggle_star_outline"
+        android:gravity="center"
+        android:text="70"
+        android:textColor="@color/abc_secondary_text_material_light"
         />
 
 </LinearLayout>

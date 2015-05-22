@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gabilheri.octokitten.R;
-import com.gabilheri.octokitten.activities.RepoActivity;
+import com.gabilheri.octokitten.ui.repo.ReposListActivity;
 import com.gabilheri.octokitten.data_models.Repo;
 import com.gabilheri.octokitten.utils.CustomUtils;
 
@@ -79,7 +79,7 @@ public class CardRepo extends Card implements Card.OnCardClickListener{
         b.putString("user", owner);
         b.putString(getContext().getString(R.string.title), repo.getName());
 
-        Intent i = new Intent(getContext(), RepoActivity.class);
+        Intent i = new Intent(getContext(), ReposListActivity.class);
         i.putExtra(Intent.EXTRA_INTENT, b);
         getContext().startActivity(i);
     }

@@ -58,5 +58,11 @@
     <string name="dir">dir</string>
     <string name="title">title</string>
     <string name="url">url</string>
+    <string name="menu">Menu</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="file_thumbnail">File Thumbnail</string>
+    <string name="stub_folder_name">folderName</string>
+    <string name="stub_description">Here goes the last commit description</string>
 
 </resources>

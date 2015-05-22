@@ -7,9 +7,12 @@ This application is a sandbox for learning RxJava as well other Android librarie
 * Android Support Library
 * rxAndroid
 * Retrofit
+* Dagger 2
 * Picasso
 * OkHttp
+* Hugo
 * ButterKnife
+@ Icicle
 * MaterialDialog
 * CircularImageView
 * CardsLib

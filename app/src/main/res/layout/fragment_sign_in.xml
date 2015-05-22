@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <com.gabilheri.octokitten.ui.widgets.TintedImageView
+            android:src="@drawable/ic_acc_login"
+            app:paint="@color/accent"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.gabilheri.octokitten.ui.widgets.FloatLabelLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:floatLabelTextAppearance="@style/TextAppearance.OctoKitten.FloatLabel"
+            >
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="14"
+                android:paddingTop="8dp"
+                android:hint="@string/username"
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="18sp"
+            />
+
+        </com.gabilheri.octokitten.ui.widgets.FloatLabelLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <com.gabilheri.octokitten.ui.widgets.TintedImageView
+            android:src="@drawable/ic_lock"
+            app:paint="@color/accent"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.gabilheri.octokitten.ui.widgets.FloatLabelLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:floatLabelTextAppearance="@style/TextAppearance.OctoKitten.FloatLabel"
+            >
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="14"
+                android:paddingTop="8dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="18sp"
+                />
+        </com.gabilheri.octokitten.ui.widgets.FloatLabelLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/button_selector"
+        android:ems="13"
+        android:text="Sign In"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>
