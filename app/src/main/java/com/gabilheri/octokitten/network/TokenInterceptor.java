@@ -26,6 +26,11 @@ public class TokenInterceptor implements RequestInterceptor {
     public void intercept(RequestFacade request) {
         request.addHeader("User-Agent", "OctoKitten for GitHub");
         request.addHeader("Accept", "application/vnd.github.v3+json");
-        request.addHeader("Authorization", "Token " + PrefManager.with(context).getString(Preferences.AUTH_TOKEN, ""));
+
+        String token = PrefManager.with(context).getString(Preferences.AUTH_TOKEN, null);
+        if(token != null) {
+            request.addHeader("Authorization", "Token " + token);
+        }
+
     }
 }

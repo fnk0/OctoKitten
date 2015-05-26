@@ -45,4 +45,8 @@
     <dimen name="first_keyline">16dp</dimen>
     <dimen name="second_keyline">56dp</dimen>
 
+    <!-- Breadcrumbs Text View -->
+    <dimen name="btv_font_size">7sp</dimen>
+    <dimen name="btv_padding">7dp</dimen>
+
 </resources>

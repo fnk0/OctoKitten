@@ -2,9 +2,6 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
-
-        // Material dialog
-        maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
     }
 }
 
@@ -18,6 +15,8 @@ repositories {
 
     // Material Dialogs
     maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
+
+    maven { url "https://repo.commonsware.com.s3.amazonaws.com" }
 }
 
 
@@ -76,6 +75,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.2.0'
     compile 'com.pnikosis:materialish-progress:1.4'
     compile 'org.commonjava.googlecode.markdown4j:markdown4j:2.2-cj-1.0'
+    compile 'com.commonsware.cwac:anddown:0.2.+'
 
     /**
      * Core

@@ -6,8 +6,16 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.gabilheri.octokitten.R;
+import com.gabilheri.octokitten.app.PrefManager;
+import com.gabilheri.octokitten.ui.about.AboutActivity;
 import com.gabilheri.octokitten.ui.auth.SignInActivity;
 import com.gabilheri.octokitten.ui.helpers.GithubFont;
+import com.gabilheri.octokitten.ui.main.MainActivity;
+import com.gabilheri.octokitten.ui.newsfeed.NewsFeedActivity;
+import com.gabilheri.octokitten.ui.settings.SettingsActivity;
+import com.gabilheri.octokitten.ui.starred.StarredActivity;
+import com.gabilheri.octokitten.ui.user_profile.UserProfileActivity;
+import com.gabilheri.octokitten.utils.Preferences;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -16,8 +24,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.Random;
-
-import timber.log.Timber;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
@@ -29,7 +35,6 @@ import timber.log.Timber;
 public abstract class BaseDrawerActivity<T> extends BaseActivity<T> {
 
     Drawer.Result drawer;
-
     protected static final int NEWS = 0;
     protected static final int MY_REPOS = 1;
     protected static final int STARRED = 2;
@@ -38,14 +43,19 @@ public abstract class BaseDrawerActivity<T> extends BaseActivity<T> {
     protected static final int SETTINGS = 5;
     protected static final int SIGN_IN_OUT = 6;
 
+    protected int currentItem = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(com.mikepenz.materialdrawer.R.style.MaterialDrawerTheme_Light_DarkToolbar_TranslucentStatus);
+
+        String username = PrefManager.with(this).getString(Preferences.USERNAME, "");
+
         IProfile profile = new ProfileDrawerItem()
-                .withName("Marcus Gabilheri")
-                .withEmail("marcusandreog@gmail.com")
-                .withIcon("https://avatars3.githubusercontent.com/u/4286642?v=3&s=460");
+                .withName(username)
+                .withEmail(PrefManager.with(this).getString(Preferences.EMAIL, ""))
+                .withIcon(PrefManager.with(this).getString(Preferences.AVATAR_URL, "https://github.com/identicons/octokitten.png"));
 
         int[] headers = {
                 R.drawable.drawer_wall1,
@@ -63,6 +73,10 @@ public abstract class BaseDrawerActivity<T> extends BaseActivity<T> {
                 .addProfiles(profile)
                 .build();
 
+        currentItem = getIntent().getExtras().getInt(EXTRA_CURRENT);
+
+        final boolean isSignedIn = !username.equals("");
+
         drawer = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -76,38 +90,50 @@ public abstract class BaseDrawerActivity<T> extends BaseActivity<T> {
                 .addStickyDrawerItems(
                         new PrimaryDrawerItem().withName("About").withIcon(GithubFont.Icon.gh_info).withIdentifier(ABOUT),
                         new PrimaryDrawerItem().withName("Settings").withIcon(GithubFont.Icon.gh_settings).withIdentifier(SETTINGS),
-                        new PrimaryDrawerItem().withName("Sign In").withIcon(GithubFont.Icon.gh_sign_in).withIdentifier(SIGN_IN_OUT)
+                        new PrimaryDrawerItem().withName(isSignedIn ? "Sign In" : "Sign Out").withIcon(GithubFont.Icon.gh_sign_in).withIdentifier(SIGN_IN_OUT)
                 )
                 .withAccountHeader(header)
                 .withSavedInstance(savedInstanceState)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id, IDrawerItem iDrawerItem) {
+
+                        if (iDrawerItem.getIdentifier() == currentItem) {
+                            return;
+                        }
+
+                        Intent i = null;
                         switch (iDrawerItem.getIdentifier()) {
                             case NEWS:
-                                Timber.i("News");
+                                i = new Intent(getBaseContext(), NewsFeedActivity.class);
                                 break;
                             case MY_REPOS:
-                                Timber.i("My Repos");
+                                i = new Intent(getBaseContext(), MainActivity.class);
                                 break;
                             case STARRED:
-                                Timber.i("Starred");
+                                i = new Intent(getBaseContext(), StarredActivity.class);
                                 break;
                             case PROFILE:
-                                Timber.i("Profile");
+                                i = new Intent(getBaseContext(), UserProfileActivity.class);
                                 break;
                             case SETTINGS:
-                                Timber.i("Settings");
+                                i = new Intent(getBaseContext(), SettingsActivity.class);
                                 break;
                             case ABOUT:
-                                Timber.i("About");
+                                i = new Intent(getBaseContext(), AboutActivity.class);
                                 break;
                             case SIGN_IN_OUT:
-                                Intent i = new Intent(getApplicationContext(), SignInActivity.class);
-                                startActivity(i);
-                                break;
+                                if (!isSignedIn) {
+                                    i = new Intent(getBaseContext(), SignInActivity.class);
+                                }
 
+                                break;
                         }
+                        if (i != null) {
+                            i.putExtra(EXTRA_CURRENT, iDrawerItem.getIdentifier());
+                            startActivity(i);
+                        }
+
 
                     }
                 })

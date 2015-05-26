@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.gabilheri.octokitten.R;
 import com.gabilheri.octokitten.app.PrefManager;
 import com.gabilheri.octokitten.data.api.github.GithubService;
 import com.gabilheri.octokitten.data_models.RepoContent;
@@ -37,13 +38,14 @@ public class SourceCodeListFragment extends DefaultListFragment<RepoComponent> {
 
     Observable<List<RepoContent>> repos;
 
+    protected List<RepoContent> contents = new ArrayList<>();
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.inject(this, view);
         Bundle b = getArguments();
         String token = PrefManager.with(getActivity()).getString(Preferences.AUTH_TOKEN, null);
-
         GithubService githubService = new GithubClient(true, token == null ? null : new TokenInterceptor(getActivity()), getActivity()).createGithubService();
 
         if(b.getString("url") != null) {
@@ -70,17 +72,35 @@ public class SourceCodeListFragment extends DefaultListFragment<RepoComponent> {
 
         @Override
         public void onNext(List<RepoContent> repoContents) {
-            Collections.sort(repoContents);
-            ArrayList<Card> cards = new ArrayList<>();
-            for(RepoContent r : repoContents) {
-                cards.add(new CardFileItem(getActivity(), r));
-            }
-            initList(cards);
+            initList(getCards(repoContents));
         }
     };
+
+    public ArrayList<Card> getCards(List<RepoContent> repoContents) {
+        Collections.sort(repoContents);
+        contents = repoContents;
+        ArrayList<Card> cards = new ArrayList<>();
+        for(RepoContent r : repoContents) {
+            cards.add(new CardFileItem(getActivity(), r));
+        }
+        return cards;
+    }
+
+    public void refreshSourceList(List<RepoContent> repoContents) {
+        initList(getCards(repoContents));
+    }
+
+    public List<RepoContent> getContents() {
+        return contents;
+    }
 
     @Override
     protected void inject(RepoComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    public int getLayoutResource() {
+        return R.layout.fragment_repo_contents;
     }
 }

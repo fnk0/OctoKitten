@@ -9,14 +9,34 @@
     android:padding="10dip"
     android:weightSum="10">
 
-    <TextView
-        android:id="@+id/repo_icon"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text=""
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@color/background_floating_material_dark"/>
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.gabilheri.octokitten.ui.widgets.GithubTextView
+            android:id="@+id/repo_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/background_floating_material_dark"
+            />
+
+        <com.gabilheri.octokitten.ui.widgets.GithubTextView
+            android:id="@+id/repo_private"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/md_amber_700"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/titles"
@@ -47,16 +67,66 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/stars_count"
-        android:layout_width="0dip"
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:drawableEnd="@drawable/ic_toggle_star_outline"
-        android:drawableRight="@drawable/ic_toggle_star_outline"
-        android:gravity="center"
-        android:text="70"
-        android:textColor="@color/abc_secondary_text_material_light"
-        />
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/stars_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="70"
+                android:textColor="@color/abc_secondary_text_material_light"
+                />
+
+            <com.gabilheri.octokitten.ui.widgets.GithubTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="\uf02a"
+                android:textColor="@color/md_indigo_500"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/forks_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@color/abc_secondary_text_material_light"
+                />
+
+            <com.gabilheri.octokitten.ui.widgets.GithubTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="\"
+                android:textColor="@color/md_indigo_500"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -7,8 +7,6 @@ import com.gabilheri.octokitten.data_models.RepoContent;
 
 import org.markdown4j.Markdown4jProcessor;
 
-import java.io.IOException;
-
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
  *
@@ -75,8 +73,33 @@ public class FileUtils {
                 return FileType.JPEG;
             case "md":
                 return FileType.MARKDOWN;
+            case "gradle":
+                return FileType.GRADLE;
             default:
                 return FileType.DEFAULT;
+        }
+    }
+
+    public static String getFileLanguage(String fileExtension) {
+        switch (FileUtils.getFileType(fileExtension)) {
+            case JAVA:
+                return "java";
+            case PYTHON:
+                return "python";
+            case RUBY:
+                return "ruby";
+            case CSS:
+                return "css";
+            case JS:
+                return "js";
+            case C:
+            case CPP:
+                return "c";
+            case JPEG:
+            case PNG:
+                return "IMAGE";
+            default:
+                return "";
         }
     }
 
@@ -87,7 +110,10 @@ public class FileUtils {
         try {
             if (FileUtils.getFileType(r.getName()) == FileType.MARKDOWN) {
                 Log.i("RENDER TEXT: ", "Markdown!!");
-                renderedString.append(new Markdown4jProcessor().process(r.getContent()));
+                Markdown4jProcessor processor = new Markdown4jProcessor();
+                String proc = processor.process(r.getContent());
+                String html = String.format(getHtml(), proc);
+                renderedString.append(html);
             } else {
                 String language = "markup";
                 switch (FileUtils.getFileType(r.getName())) {
@@ -113,29 +139,52 @@ public class FileUtils {
                     case JPEG:
                     case PNG:
                         return "IMAGE";
+                    default:
+                        language =  FileUtils.getFileExtension(r.getName());
+                        break;
                 }
-                renderedString.append("<!doctype html>\n")
+
+                renderedString
+                        .append("<!DOCTYPE html>\n")
                         .append("<html lang=\"en\">\n")
                         .append("<head>\n")
-                        .append("    <meta charset=\"utf-8\">")
-                        .append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
-                        .append("<link rel=\"stylesheet\" href=\"prism.css\">\n")
+                        .append("<link rel=\"stylesheet\" href=\"base.css\">\n")
+                        .append("<link rel=\"stylesheet\" href=\"styles/androidstudio.css\">\n")
                         .append("</head>\n")
                         .append("<body>")
-                                //.append("<pre><code>")
+                                .append("<pre><code>")
                                 //.append(FileUtils.getFileExtension(r.getName()))
-                                //.append("\">")
-                        .append(new Markdown4jProcessor().process("```language-" + language + "\n" + r.getContent() + "```"))
-                                //.append("</code></pre>")
-                        .append("<script src=\"prism.js\"></script>")
+                                .append(r.getContent())
+                                .append("</code></pre>")
+                                        //.append("\">")
+//                        .append(new Markdown4jProcessor().process("```language-" + language + "\n" + r.getContent() + "```"))
+                                        //.append("</code></pre>")
+                        .append("<script src=\"highlight.js\"></script>")
+                        .append("<script>hljs.initHighlightingOnLoad();</script>")
                         .append("</body>\n")
                         .append("</html>");
             }
             return renderedString.toString();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             return null;
         }
     }
+
+    public static String getHtml() {
+        return "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "<link rel=\"stylesheet\" href=\"markdown/solarized_light.css\">\n" +
+                "<link rel=\"stylesheet\" href=\"styles/androidstudio.css\">\n" +
+                "</head>\n" +
+                "<body>" +
+                "%s" +
+                "<script src=\"highlight.js\"></script>" +
+                "<script>hljs.initHighlightingOnLoad();</script>" +
+                "</body>\n" +
+                "</html>";
+    }
+
 
     public static String getFileExtension(String fileName) {
 

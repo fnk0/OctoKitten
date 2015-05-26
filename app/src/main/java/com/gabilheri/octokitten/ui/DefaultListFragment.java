@@ -64,6 +64,7 @@ public abstract class DefaultListFragment<T> extends DefaultFragment<T> {
 
     public void initList(ArrayList<Card> cards) {
         mCardArrayAdapter.setCards(cards);
+        recyclerViewList.setAdapter(mCardArrayAdapter);
         progressWheel.setVisibility(View.GONE);
         refreshList();
     }

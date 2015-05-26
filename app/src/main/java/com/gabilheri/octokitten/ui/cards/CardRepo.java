@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gabilheri.octokitten.R;
-import com.gabilheri.octokitten.ui.repo.ReposListActivity;
 import com.gabilheri.octokitten.data_models.Repo;
-import com.gabilheri.octokitten.utils.CustomUtils;
+import com.gabilheri.octokitten.ui.repo.readme.ReadmeActivity;
+import com.gabilheri.octokitten.ui.widgets.GithubTextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -38,7 +38,13 @@ public class CardRepo extends Card implements Card.OnCardClickListener{
     TextView starCountView;
 
     @InjectView(R.id.repo_icon)
-    TextView repoIcon;
+    GithubTextView repoIcon;
+
+    @InjectView(R.id.forks_count)
+    TextView forksCountView;
+
+    @InjectView(R.id.repo_private)
+    GithubTextView repoPrivate;
 
     private Repo repo;
 
@@ -52,17 +58,21 @@ public class CardRepo extends Card implements Card.OnCardClickListener{
     public void setupInnerViewElements(ViewGroup parent, View view) {
         super.setupInnerViewElements(parent, view);
         ButterKnife.inject(this, view);
-        repoIcon.setTypeface(CustomUtils.getGithubTypeface(this.getContext()));
 
         if(repo != null) {
             titleView.setText(repo.getName());
             subTitleView.setText(repo.getDescription());
             starCountView.setText("" + repo.getStargazersCount());
+            forksCountView.setText("" + repo.getForksCount());
 
             if(repo.getFork()) {
                 repoIcon.setText("\uf002");
             } else {
                 repoIcon.setText("\uf001");
+            }
+
+            if(repo.isPrivate()) {
+                repoPrivate.setVisibility(TextView.VISIBLE);
             }
         }
     }
@@ -78,8 +88,12 @@ public class CardRepo extends Card implements Card.OnCardClickListener{
         b.putString(getContext().getString(R.string.url), url);
         b.putString("user", owner);
         b.putString(getContext().getString(R.string.title), repo.getName());
+        b.putInt("star_count", repo.getStargazersCount());
+        b.putInt("fork_count", repo.getForksCount());
+        b.putInt("watchers_count", repo.getWatchersCount());
+        b.putString("description", repo.getDescription());
 
-        Intent i = new Intent(getContext(), ReposListActivity.class);
+        Intent i = new Intent(getContext(), ReadmeActivity.class);
         i.putExtra(Intent.EXTRA_INTENT, b);
         getContext().startActivity(i);
     }

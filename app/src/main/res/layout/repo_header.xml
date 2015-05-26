@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="168dp"
+    android:background="@drawable/drawer_wall4"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/repo_name"
+        android:text="Repo Name"
+        android:singleLine="true"
+        android:textColor="@color/md_grey_300"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/repo_description"
+        android:singleLine="true"
+        android:text="Repo description...."
+        android:textColor="@color/md_grey_300"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_weight="1">
+
+            <com.gabilheri.octokitten.ui.widgets.GithubTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_grey_300"
+                android:text="\uf02a"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/stars_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="84"
+                android:textColor="@color/md_grey_300"
+                android:textSize="26sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <com.gabilheri.octokitten.ui.widgets.GithubTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/md_grey_300"
+                android:text="\uf002"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/forks_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="20"
+                android:textColor="@color/md_grey_300"
+                android:textSize="26sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_weight="1">
+
+            <com.gabilheri.octokitten.ui.widgets.GithubTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/md_grey_300"
+                android:text="\uf04e"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/watchers_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="15"
+                android:textColor="@color/md_grey_300"
+                android:textSize="26sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

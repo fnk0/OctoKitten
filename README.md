@@ -12,7 +12,7 @@ This application is a sandbox for learning RxJava as well other Android librarie
 * OkHttp
 * Hugo
 * ButterKnife
-@ Icicle
+* Icicle
 * MaterialDialog
 * CircularImageView
 * CardsLib

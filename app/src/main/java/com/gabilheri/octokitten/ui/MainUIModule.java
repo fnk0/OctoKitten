@@ -1,4 +1,4 @@
-package com.gabilheri.octokitten.ui.main;
+package com.gabilheri.octokitten.ui;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,14 +13,14 @@ import dagger.Provides;
 @Module
 public class MainUIModule {
 
-    private final MainActivity activity;
+    private final BaseMainActivity activity;
 
-    public MainUIModule(MainActivity activity) {
+    public MainUIModule(BaseMainActivity activity) {
         this.activity = activity;
     }
 
     @Provides
-    MainActivity provideActivity() {
+    BaseMainActivity provideActivity() {
         return activity;
     }
     

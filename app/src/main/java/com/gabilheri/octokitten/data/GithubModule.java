@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.gabilheri.octokitten.data.api.Api;
 import com.gabilheri.octokitten.data.api.github.GithubService;
+import com.gabilheri.octokitten.network.TokenInterceptor;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -31,6 +32,12 @@ public class GithubModule {
     Application app;
 
     @Singleton
+    @Provides
+    TokenInterceptor provideTokenInterceptor(Application app) {
+        return new TokenInterceptor(app.getApplicationContext());
+    }
+
+    @Singleton
     @Api("github")
     @Provides
     Endpoint provideEndpoint() {
@@ -40,12 +47,10 @@ public class GithubModule {
     @Singleton
     @Api("github")
     @Provides
-    RestAdapter provideRestAdapter(Client client, @Api("github") Endpoint endpoint) {
-
-
-
+    RestAdapter provideRestAdapter(Client client, @Api("github") Endpoint endpoint, TokenInterceptor interceptor) {
         return new RestAdapter.Builder()
                 .setClient(client)
+                .setRequestInterceptor(interceptor)
                 .setEndpoint(endpoint)
                 .build();
     }

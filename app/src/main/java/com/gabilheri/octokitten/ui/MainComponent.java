@@ -1,8 +1,9 @@
-package com.gabilheri.octokitten.ui.main;
+package com.gabilheri.octokitten.ui;
 
 import com.gabilheri.octokitten.app.ApplicationComponent;
 import com.gabilheri.octokitten.data.api.github.GithubService;
-import com.gabilheri.octokitten.ui.ActivityScope;
+import com.gabilheri.octokitten.ui.main.MainActivity;
+import com.gabilheri.octokitten.ui.user_profile.UserProfileFragment;
 import com.squareup.otto.Bus;
 
 import dagger.Component;
@@ -31,5 +32,6 @@ public interface MainComponent {
     Timber.Tree tree();
 
     void inject(MainActivity mainActivity);
-    void inject(ReposFragment fragment);
+    void inject(BaseDefaultListFragment fragment);
+    void inject(UserProfileFragment fragment);
 }

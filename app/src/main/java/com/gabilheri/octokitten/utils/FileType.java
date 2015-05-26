@@ -8,7 +8,6 @@ package com.gabilheri.octokitten.utils;
  * @since 11/26/14.
  */
 public enum  FileType {
-
-    PDF, CSS, HTML, PNG, XML, JPEG, JAVA, RUBY, PYTHON, JS, C, CPP, TEXT, DEFAULT, DIR, MARKDOWN
+    PDF, CSS, HTML, PNG, XML, JPEG, JAVA, RUBY, PYTHON, JS, C, CPP, TEXT, DEFAULT, DIR, MARKDOWN, GRADLE
 
 }

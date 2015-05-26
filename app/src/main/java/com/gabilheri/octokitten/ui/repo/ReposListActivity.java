@@ -1,23 +1,24 @@
 package com.gabilheri.octokitten.ui.repo;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
 
 import com.gabilheri.octokitten.R;
-import com.gabilheri.octokitten.adapters.BaseViewPagerAdapter;
+import com.gabilheri.octokitten.data_models.RepoContent;
 import com.gabilheri.octokitten.ui.repo.code.SourceCodeListFragment;
+import com.gabilheri.octokitten.ui.widgets.BreadCrumbContainer;
+import com.gabilheri.octokitten.ui.widgets.BreadCrumbTextView;
+import com.gabilheri.octokitten.ui.widgets.NavigateUpListener;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import it.neokree.materialtabs.MaterialTab;
-import it.neokree.materialtabs.MaterialTabHost;
-import it.neokree.materialtabs.MaterialTabListener;
-import timber.log.Timber;
+import icepick.Icepick;
+import icepick.Icicle;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
@@ -26,120 +27,79 @@ import timber.log.Timber;
  * @version 1.0
  * @since 5/10/15.
  */
-public class ReposListActivity extends BaseRepoActivity implements MaterialTabListener {
+public class ReposListActivity extends BaseRepoActivity implements NavigateUpListener {
 
-    @InjectView(R.id.materialTabHost)
-    protected MaterialTabHost tabHost;
-
-    @InjectView(R.id.pager)
-    protected ViewPager pager;
-
-    protected List<Fragment> fragmentList;
-    protected List<CharSequence> titleList;
-    protected BaseViewPagerAdapter adapter;
-
+    @Icicle
     public Bundle extras;
+
+    @InjectView(R.id.breadcrumb_container)
+    BreadCrumbContainer breadCrumbContainer;
+
+    protected SourceCodeListFragment codeFragment;
+
+    protected Stack<List<RepoContent>> stack = new Stack<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
-
-        fragmentList = new ArrayList<>();
-        titleList = new ArrayList<>();
-
+        Icepick.restoreInstanceState(this, savedInstanceState);
         extras = getIntent().getExtras().getBundle(Intent.EXTRA_INTENT);
         String repoName = extras.getString("title");
         setTitle(repoName);
-
-        SourceCodeListFragment codeFragment = new SourceCodeListFragment();
+        codeFragment = new SourceCodeListFragment();
         codeFragment.setArguments(extras);
-
-        titleList.add("/");
-        fragmentList.add(codeFragment);
-        initPager();
+        addFragmentToContainer(codeFragment, null);
+        breadCrumbContainer.addBreadCrumb(buildBreadCrumb(""));
     }
 
-
-    @Override
-    public void onTabSelected(MaterialTab materialTab) {
-        pager.setCurrentItem(materialTab.getPosition());
+    public void addDir(List<RepoContent> contents, String title) {
+        stack.push(codeFragment.getContents());
+        Log.d(getClass().getSimpleName(), "Adding directory to stack... " + stack.size());
+//        logger.d("Adding directory to stack... " + stack.size());
+        final String[] tArr = title.split("/");
+        final String t = tArr[tArr.length -1].replaceAll("/", "");
+        breadCrumbContainer.addBreadCrumb(buildBreadCrumb(t));
+        codeFragment.refreshSourceList(contents);
     }
 
-    @Override
-    public void onTabReselected(MaterialTab materialTab) {
-
-    }
-
-    @Override
-    public void onTabUnselected(MaterialTab materialTab) {
-
-    }
-
-    public void addFragment(String title, Fragment f) {
-        String[] t = title.split("/");
-        titleList.add(t[t.length -1]);
-        fragmentList.add(f);
-        pager.invalidate();
-        tabHost.addTab(tabHost.newTab().setText(t[t.length -1]).setTabListener(this));
-        tabHost.notifyDataSetChanged();
-        adapter.notifyDataSetChanged();
-        setPagerNumber(adapter.getCount() - 1);
-    }
-
-    public void initPager() {
-
-        adapter = new BaseViewPagerAdapter(getFragmentManager(), fragmentList, titleList);
-        pager.setOffscreenPageLimit(100); // Safe to ensure that no one has code with directories going 100 levels deep...
-        pager.setAdapter(adapter);
-        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    private BreadCrumbTextView buildBreadCrumb(String t) {
+        final BreadCrumbTextView btv = (BreadCrumbTextView) getLayoutInflater().inflate(R.layout.btv_layout, null);
+        btv.setText(t);
+        btv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageSelected(int position) {
-
-                if (position < fragmentList.size() - 1) {
-
-                    for (int i = fragmentList.size() - 1; i > position; i--) {
-                        fragmentList.remove(i);
-                        titleList.remove(i);
-                    }
-                    Timber.i("Pager Size: " + fragmentList.size());
-                    initTabHost();
-                    tabHost.notifyDataSetChanged();
-                    tabHost.invalidate();
-                    adapter.notifyDataSetChanged();
-                    pager.invalidate();
-
-                }
-                tabHost.setSelectedNavigationItem(position);
-            }
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onClick(View v) {
+                breadCrumbContainer.clickBreadCrumb((BreadCrumbTextView) v);
             }
         });
-
-        initTabHost();
+        return btv;
     }
 
-    public void initTabHost() {
-        for(int i = 0; i < adapter.getCount(); i++) {
-            tabHost.addTab(tabHost.newTab().setText(adapter.getPageTitle(i)).setTabListener(this));
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(stack.size() == 0) {
+            super.onBackPressed();
         }
+        navigateUp();
     }
 
-    public void setPagerNumber(int number) {
-        pager.setCurrentItem(number);
-        tabHost.setSelectedNavigationItem(number);
+    @Override
+    public void navigateUp() {
+        logger.d("Stack count: " + stack.size());
+        if(stack.size() > 0) {
+            List<RepoContent> r = stack.pop();
+            codeFragment.refreshSourceList(r);
+            breadCrumbContainer.removeLastBreadCrumb();
+        }
     }
 
     @Override
     public int getLayoutResource() {
-        return R.layout.activity_base_pager;
+        return R.layout.activity_repo_contents;
     }
 }

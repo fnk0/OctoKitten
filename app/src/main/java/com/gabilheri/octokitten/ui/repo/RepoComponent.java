@@ -22,12 +22,13 @@ import dagger.Component;
 @Component(
         dependencies = ApplicationComponent.class,
         modules = {
-            RepoUIModule.class
+            RepoUIModule.class,
         }
 )
 public interface RepoComponent {
 
     void inject(BaseRepoActivity baseRepoActivity);
+
     void inject(IssuesFragment issuesFragment);
     void inject(SourceCodeListFragment sourceCodeListFragment);
     void inject(SourceCodeFragment sourceCodeFragment);
@@ -35,5 +36,4 @@ public interface RepoComponent {
     void inject(CommitsFragment commitsFragment);
     void inject(ContributorsFragment contributorsFragment);
     void inject(ReadmeFragment readmeFragment);
-
 }

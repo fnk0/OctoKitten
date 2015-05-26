@@ -101,16 +101,60 @@ public class User {
     @SerializedName("disk_usage")
     private int diskUsage;
 
-    private UserPlan plan;
+    public static class Plan {
+
+        private long collaborators;
+
+        @SerializedName("private_repos")
+        private long privateRepos;
+
+        private long space;
+        private String name;
+
+        public long getCollaborators() {
+            return collaborators;
+        }
+
+        public void setCollaborators(long collaborators) {
+            this.collaborators = collaborators;
+        }
+
+        public long getPrivateRepos() {
+            return privateRepos;
+        }
+
+        public void setPrivateRepos(long privateRepos) {
+            this.privateRepos = privateRepos;
+        }
+
+        public long getSpace() {
+            return space;
+        }
+
+        public void setSpace(long space) {
+            this.space = space;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+
+    private Plan plan;
 
     public User() {
     }
 
-    public UserPlan getPlan() {
+    public Plan getPlan() {
         return plan;
     }
 
-    public void setPlan(UserPlan plan) {
+    public void setPlan(Plan plan) {
         this.plan = plan;
     }
 

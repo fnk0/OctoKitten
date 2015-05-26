@@ -9,6 +9,7 @@ package com.gabilheri.octokitten.data_models;
  */
 import android.support.annotation.NonNull;
 
+import com.gabilheri.octokitten.utils.CustomUtils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -211,6 +212,10 @@ public class RepoContent implements Comparable<RepoContent> {
      * The content
      */
     public String getContent() {
+        return CustomUtils.getBase64string(content);
+    }
+
+    public String getBase64content() {
         return content;
     }
 
@@ -261,6 +266,8 @@ public class RepoContent implements Comparable<RepoContent> {
 
     @Override
     public int compareTo(@NonNull RepoContent another) {
-        return Boolean.compare(another.getType().equals("dir"), this.getType().equals("dir"));
+        boolean lhs = another.getType().equals("dir");
+        boolean rhs = this.getType().equals("dir");
+        return lhs == rhs ? 0 : lhs ? 1 : -1;
     }
 }

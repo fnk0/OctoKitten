@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.gabilheri.octokitten.BuildConfig;
+import com.gabilheri.octokitten.R;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.picasso.Picasso;
@@ -57,7 +58,7 @@ public class OctoKittenApp extends Application implements HasComponent<Applicati
 
             @Override
             public Drawable placeholder(Context ctx) {
-                return null;
+                return ctx.getResources().getDrawable(R.drawable.ic_action_account_circle);
             }
         });
     }

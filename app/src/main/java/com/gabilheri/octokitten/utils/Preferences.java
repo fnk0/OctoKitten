@@ -9,7 +9,11 @@ package com.gabilheri.octokitten.utils;
  */
 public class Preferences {
 
-    public static final String AUTH_TOKEN = "com.gabilheri.octokitten.auth_token";
+    public static final String BASE_PREF = "com.gabilheri.octokitten.";
 
+    public static final String AUTH_TOKEN = BASE_PREF + "auth_token";
+    public static final String USERNAME = BASE_PREF + "username";
+    public static final String EMAIL = BASE_PREF + "email";
+    public static final String AVATAR_URL = BASE_PREF + "avatar_url";
 
 }

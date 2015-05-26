@@ -1,7 +1,5 @@
 package com.gabilheri.octokitten.network;
 
-import android.content.Context;
-
 import com.squareup.okhttp.Credentials;
 
 import retrofit.RequestInterceptor;
@@ -16,16 +14,13 @@ import retrofit.RequestInterceptor;
 public class BasicCredentialsInterceptor implements RequestInterceptor {
 
     private String encodedCredentials;
-    private Context context;
 
-    public BasicCredentialsInterceptor(String username, String password, Context context) {
+    public BasicCredentialsInterceptor(String username, String password) {
         this.encodedCredentials = Credentials.basic(username, password);
-        this.context = context;
     }
 
-    public BasicCredentialsInterceptor(String encodedCredentials, Context context) {
+    public BasicCredentialsInterceptor(String encodedCredentials) {
         this.encodedCredentials = encodedCredentials;
-        this.context = context;
     }
 
     @Override
